@@ -42,7 +42,6 @@ class MLP:
         self.dW2 = np.zeros((self.no_hidden_units, self.no_outputs))  
         self.dB2 = np.zeros(self.no_outputs)
 
-
     ## Non linear activation function for hidden layer
     def relu(self, x : np.ndarray) -> np.ndarray:
         return np.maximum(0, x)
@@ -121,7 +120,8 @@ def train(NN : MLP, X : np.array, y : np.array) -> None:
     for t in range(1000): 
         output = NN.forward(X)
         error = NN.backward(X, y)
-        NN.update_weights(0.01)
+        if (t % 2) == 0: 
+            NN.update_weights(0.01)
         print(f"Error at epoch {t} is {error}")
 
 NN = MLP(2, 4, 1)
